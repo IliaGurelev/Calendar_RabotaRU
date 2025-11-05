@@ -22,3 +22,9 @@ export function getMonthName(monthNumber) {
 
   return month[monthNumber]
 }
+
+export function getWeekDays(date) {
+  const weekDays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay()
+  return [...weekDays.slice(firstDay), ...weekDays.slice(0, firstDay)]
+}

@@ -1,5 +1,8 @@
 <template>
   <div class="grid">
+    <div v-for="day of weekDays" :key="day" class="date">
+      <p>{{ day }}</p>
+    </div>
     <div 
       v-for="day of daysCurrentMonth" 
       :key="day.date" 
@@ -14,7 +17,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import { getMonthDays } from '@/utils/date';
+import { getMonthDays, getWeekDays } from '@/utils/date';
 
 const props = defineProps({
   currentDate: {
@@ -31,6 +34,7 @@ const props = defineProps({
 const emit = defineEmits(['select-date'])
 
 const daysCurrentMonth = computed(() => getMonthDays(props.currentDate))
+const weekDays = computed(() => getWeekDays(props.currentDate))
 
 function selectDate(date) {
   emit('select-date', date)
@@ -45,7 +49,7 @@ function isSelected(date) {
 .grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 20px;
+  gap: 16px;
 }
 
 .date {
