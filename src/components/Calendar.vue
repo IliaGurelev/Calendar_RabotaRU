@@ -1,34 +1,21 @@
 <template>
   <div class="calendar">
-    <div class="header">
-      <button class="left"><</button>
-      <p class="month">{{ currentMonth }}</p>
-      <button class="right">></button>
-    </div>
-    <div class="grid">
-      <p v-for="day of daysCurrentMonth">{{ day }}</p>
-    </div>
+    <calendar-header :current-date="currentDate" @change-month="changeDateHandler" />
+    <calendar-grid :current-date="currentDate" />
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { getMonthDays, getMonthName } from '@/utils/date';
+import { ref } from 'vue';
+import CalendarHeader from '@/components/CalendarHeader.vue';
+import CalendarGrid from '@/components/CalendarGrid.vue';
 
 const currentDate = ref(new Date());
-const currentMonth = computed(() => getMonthName(currentDate.value.getMonth()))
-const daysCurrentMonth = computed(() => getMonthDays(currentDate.value))
+
+function changeDateHandler(date) {
+  currentDate.value = date
+}
 </script>
 
 <style lang="scss" scoped>
-.header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 20px;
-}
 </style>

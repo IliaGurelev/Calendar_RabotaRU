@@ -15,5 +15,5 @@ export function getMonthName(monthNumber) {
     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
   ]
 
-  return month[monthNumber - 1]
+  return month[monthNumber]
 }
