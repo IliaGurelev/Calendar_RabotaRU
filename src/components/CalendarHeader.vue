@@ -14,13 +14,18 @@ const props = defineProps({
   currentDate: {
     type: Date,
     required: true
+  },
+  locale: {
+    type: String,
+    required: false,
+    default: 'ru-RU'
   }
 })
 
 const emit = defineEmits(['change-month'])
 
 const currentYear = computed(() => props.currentDate.getFullYear())
-const currentMonth = computed(() => getMonthName(props.currentDate.getMonth()))
+const currentMonth = computed(() => getMonthName(props.currentDate.getMonth(), props.locale))
 
 function nextMonth() {
   const next = new Date(

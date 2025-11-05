@@ -14,17 +14,18 @@ export function getMonthDays(date) {
   return days
 }
 
-export function getMonthName(monthNumber) {
-  const month = [
-    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-  ]
-
-  return month[monthNumber]
+export function getMonthName(monthNumber, locale = 'ru-RU') {
+  const date = new Date(2025, monthNumber, 1)
+  return date.toLocaleString(locale, {month: 'long'})
 }
 
-export function getWeekDays(date) {
-  const weekDays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+export function getWeekDays(date, locale = 'ru-RU') {
+  const weekDays = []
+  for(let i = 0; i < 7; i++) {
+    const day = new Date(2025, 11, i)
+    weekDays.push(day.toLocaleString(locale , {weekday: 'short'})) 
+  }
+
   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay()
   return [...weekDays.slice(firstDay), ...weekDays.slice(0, firstDay)]
 }

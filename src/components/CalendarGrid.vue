@@ -28,13 +28,18 @@ const props = defineProps({
     type: Date,
     required: false,
     default: new Date()
+  },
+   locale: {
+    type: String,
+    required: false,
+    default: 'ru-RU'
   }
 })
 
 const emit = defineEmits(['select-date'])
 
 const daysCurrentMonth = computed(() => getMonthDays(props.currentDate))
-const weekDays = computed(() => getWeekDays(props.currentDate))
+const weekDays = computed(() => getWeekDays(props.currentDate, props.locale))
 
 function selectDate(date) {
   emit('select-date', date)
