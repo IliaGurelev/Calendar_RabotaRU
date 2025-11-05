@@ -1,6 +1,14 @@
 <template>
   <div class="grid">
-    <p v-for="day of daysCurrentMonth">{{ day }}</p>
+    <div 
+      v-for="day of daysCurrentMonth" 
+      :key="day.date" 
+      class="date"
+      :class="{selected: isSelected(day.date)}"
+      @click="selectDate(day.date)"
+    >
+      <p>{{ day.number }}</p>
+    </div>
   </div>
 </template>
 
@@ -12,10 +20,25 @@ const props = defineProps({
   currentDate: {
     type: Date,
     required: true
+  },
+  selectDate: {
+    type: Date,
+    required: false,
+    default: new Date()
   }
 })
 
+const emit = defineEmits(['select-date'])
+
 const daysCurrentMonth = computed(() => getMonthDays(props.currentDate))
+
+function selectDate(date) {
+  emit('select-date', date)
+}
+
+function isSelected(date) {
+  return date.getTime() === props.selectDate.getTime()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -23,5 +46,16 @@ const daysCurrentMonth = computed(() => getMonthDays(props.currentDate))
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 20px;
+}
+
+.date {
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selected {
+  box-shadow: 0px 0px 0px 1px #7297c7;
 }
 </style>

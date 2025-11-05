@@ -1,9 +1,14 @@
 export function getMonthDays(date) {
   const days = []
-  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+  const year = date.getFullYear();
+  const month = date.getMonth()
+  const lastDay = new Date(year, month + 1, 0).getDate()
   
   for(let i = 1; i <= lastDay; i++) {
-    days.push(i)
+    days.push({
+      date: new Date(year, month, i),
+      number: i
+    })
   }
 
   return days
